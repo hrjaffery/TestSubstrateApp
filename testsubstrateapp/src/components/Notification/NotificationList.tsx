@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
-import "../styles/App.css";
-import { db } from "../config/firebaseConfig";
 import {
   collection,
-  query,
-  onSnapshot,
   doc,
+  onSnapshot,
+  query,
   updateDoc,
 } from "firebase/firestore";
+import { useEffect, useState } from "react";
+import { db } from "../../config/firebaseConfig";
+import "../../styles/App.css";
 
 const NotificationList = () => {
   const [notification, setNotifications] = useState<any[]>([]);
@@ -19,27 +19,31 @@ const NotificationList = () => {
         id: doc.id,
         ...doc.data(),
       }));
-      console.log("🚀 ~ notifs ~ notifs:", notifs);
+
       setNotifications(notifs);
 
       return () => unsubscribe();
     });
   }, []);
 
-  const markAsRead = async (id: string) => {
+  const updateNotificationStatus = async (id: string) => {
     const notifDoc = doc(db, "notifications", id);
     await updateDoc(notifDoc, { read: true });
   };
 
   return (
     <div>
-      {notification.map((notif, index) => (
-        <div key={notif?.id} onClick={() => markAsRead(notif.id)}>
-          <p>
-            {index}-{notif.message} - {notif?.read && "Seen"}
-          </p>
-        </div>
-      ))}
+      {notification.length &&
+        notification.map((notif, index) => (
+          <div
+            key={notif?.id}
+            onClick={() => updateNotificationStatus(notif.id)}
+          >
+            <p>
+              {index}-{notif.message} - {notif?.read && "Seen"}
+            </p>
+          </div>
+        ))}
     </div>
   );
 };

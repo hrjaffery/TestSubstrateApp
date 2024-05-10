@@ -1,12 +1,12 @@
 import React from "react";
-import NotificationSystem from "./components/Notification/NotificationSystem";
+import NotificationController from "./components/Notification/NotificationController";
 import NotificationList from "./components/Notification/NotificationList";
 
 function App() {
   return (
     <div className="App">
-      <h1>Notification System</h1>
-      <NotificationSystem />
+      <h1>Notification Controller</h1>
+      <NotificationController />
       <NotificationList />
     </div>
   );
