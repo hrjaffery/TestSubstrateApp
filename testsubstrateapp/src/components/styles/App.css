@@ -1,0 +1,9 @@
+.notif-unseen {
+  cursor: pointer;
+  text-decoration: line-through;
+}
+
+.notif-seen {
+  cursor: pointer;
+  text-decoration: none;
+}
